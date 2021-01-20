@@ -4,13 +4,14 @@ import java.util.List;
 
 import com.tampro.springrest01.entity.Employee;
 import com.tampro.springrest01.entity.Team;
-import com.tampro.springrest01.response.APIResponse;
+import com.tampro.springrest01.model.request.CreateEmpRequest;
 
 public interface EmployeeService {
-	APIResponse<Employee> createEmployee(Employee employee);
-	APIResponse<Employee> updateEmployee(Employee employee);
-	void deleteEmployee(Employee address);
+	Employee createEmployee(CreateEmpRequest createEmpRequest);
+	Employee updateEmployee(Employee employee);
+	void deleteEmployee(Employee employee);
 	List<Employee> getAll();
 	List<Employee> getByTeam(Team team);
 	Employee getById(long id);
+	boolean isExists(String code);
 }

@@ -7,7 +7,9 @@ public enum APIStatus {
 	CREATED(201,"Created"),
 	ERR_INTERNAL_SERVER(500,"Internal Server Error"),
 	ERR_CODE_EXISTS(113, "Code is exists"),
-	ERR_EMPLOYEE_ID_NOT_EXISTS(119,"Employee not exists ");
+	ERR_CODE_NOT_EXISTS(114, "Code not is exists"),
+	ERR_EMPLOYEE_ID_NOT_EXISTS(119,"Employee not exists "),
+	ERR_TEAM_ID_NOT_EXISTS(120,"Team not exists ");
 	
 	
 	private final int code ;

@@ -50,6 +50,16 @@ public class TeamController {
 				new APIResponse<Team>(team, APIStatus.OK),
 				HttpStatus.OK);
 	}
+	@GetMapping("/code/{code}")
+	public ResponseEntity<APIResponse> getTeamByCode(@PathVariable("code") String code){
+		Team team = teamService.getByCode(code);
+		if(team == null) {
+			throw new ApplicationException(APIStatus.ERR_CODE_NOT_EXISTS);
+		}
+		return new ResponseEntity<APIResponse>(
+				new APIResponse<Team>(team, APIStatus.OK),
+				HttpStatus.OK);
+	}
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<APIResponse> createTeam(@Validated @RequestBody CreateTeamRequest createTeamRequest){
 		if(teamService.isTeamExistsByCode(createTeamRequest.getCode())) {
@@ -65,7 +75,7 @@ public class TeamController {
 	public ResponseEntity<APIResponse> updateTeam(@Validated @RequestBody Team teamRequest){
 		Team team = teamService.getById(teamRequest.getId());
 		if(team == null) {
-			throw new ApplicationException(APIStatus.ERR_EMPLOYEE_ID_NOT_EXISTS); 
+			throw new ApplicationException(APIStatus.ERR_TEAM_ID_NOT_EXISTS); 
 		}
 		if(team.getCode() != null) {
 			team.setName(teamRequest.getCode());

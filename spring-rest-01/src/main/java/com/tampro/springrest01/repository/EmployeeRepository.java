@@ -11,4 +11,6 @@ import com.tampro.springrest01.entity.Employee;
 public interface EmployeeRepository  extends CrudRepository<Employee, Long>{
 	@Override
 	List<Employee> findAll();
+	
+	Employee findByCode(String code);
 }

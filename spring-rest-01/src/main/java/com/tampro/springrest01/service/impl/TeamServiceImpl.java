@@ -56,4 +56,10 @@ public class TeamServiceImpl implements TeamService{
 		return (teamRepo.findByCode(code) != null) ? true : false ; 
 	}
 
+	@Override
+	public Team getByCode(String code) {
+		// TODO Auto-generated method stub
+		return teamRepo.findByCode(code);
+	}
+
 }

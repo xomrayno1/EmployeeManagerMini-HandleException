@@ -10,9 +10,6 @@ public class ApplicationException extends RuntimeException{
 	private APIStatus apiStatus;
 	private List<Constant.ParamError> data;
 	
-	
-	
-	
 	public ApplicationException(Throwable cause) {
 		super(cause);
 	}

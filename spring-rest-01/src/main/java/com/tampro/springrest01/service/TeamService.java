@@ -11,6 +11,7 @@ public interface TeamService {
 	void deleteTeam(Team team);
 	List<Team> getAll();
 	Team getById(long id);
+	Team getByCode(String code);
 	boolean isTeamExistsByCode(String code);
 
 }
