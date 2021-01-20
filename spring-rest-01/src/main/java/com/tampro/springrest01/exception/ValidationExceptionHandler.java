@@ -8,14 +8,14 @@ import org.springframework.web.context.request.WebRequest;
 
 import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.response.APIStatus;
-import com.tampro.utils.ResponseUtil;
+import com.tampro.utils.ResponseUtils;
 
 @ControllerAdvice
 public class ValidationExceptionHandler {
 	//@Autowired
-	ResponseUtil responseUtil  = new ResponseUtil();
+	ResponseUtils responseUtil  = new ResponseUtils();
 	
-	@ExceptionHandler(value = ApplicationException.class)
+	@ExceptionHandler(value = ApplicationException.class) // handle lỗi
 	public ResponseEntity<APIResponse> handleApplication(ApplicationException applicationException,
 			WebRequest webRequest ){
 		ResponseEntity<APIResponse> responseEntity;

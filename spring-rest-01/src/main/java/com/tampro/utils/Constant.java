@@ -4,6 +4,8 @@ public class Constant {
 	
 	public enum ParamError{
 		CODE("code", "Invalid Code");
+		
+		
 		private final String code;
 		private final String desrci;
 		

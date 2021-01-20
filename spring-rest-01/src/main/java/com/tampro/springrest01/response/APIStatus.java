@@ -1,5 +1,7 @@
 package com.tampro.springrest01.response;
-
+/*
+ *  tạo và trả về lỗi gồm code và format
+ */
 public enum APIStatus {
 	OK(200, "Ok"),
 	ERR_BAD_REQUEST(400, "Bad Request"),

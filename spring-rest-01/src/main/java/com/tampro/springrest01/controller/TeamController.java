@@ -22,12 +22,16 @@ import com.tampro.springrest01.model.request.CreateTeamRequest;
 import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.response.APIStatus;
 import com.tampro.springrest01.service.TeamService;
+import com.tampro.utils.Constant;
+import com.tampro.utils.ResponseUtils;
 
 @RestController
 @RequestMapping("/api/v1/teams")
 public class TeamController {
 	@Autowired
 	private TeamService teamService;
+	 
+	ResponseUtils responseUtils = new ResponseUtils();
 	
 	@GetMapping
 	public ResponseEntity<APIResponse> getAllTeam(){
@@ -35,9 +39,9 @@ public class TeamController {
 		if(listTeam.isEmpty()) {
 			return new ResponseEntity<APIResponse>(HttpStatus.NO_CONTENT);
 		}
-		APIResponse<List<Team>> apiResponse =
-					 new APIResponse<List<Team>>(listTeam,APIStatus.OK);
-		return new ResponseEntity<APIResponse>(apiResponse,HttpStatus.OK);
+		return responseUtils.buildResponse(APIStatus.OK,
+				listTeam, 
+				HttpStatus.OK);		 
 	}
 	
 	@GetMapping("/{id}")

@@ -8,7 +8,8 @@ public class APIResponse<T> {
 	public APIResponse(T data,APIStatus apiStatus) {
 		if(apiStatus == null) {
 			throw new IllegalArgumentException("Apistatus must not be null");
-		}
+			// tham số được sử dụng gọi phương thức ko hợp lệ
+		} 
 		status = apiStatus.getCode();
 		message = apiStatus.getDescription();
 		this.data = data;

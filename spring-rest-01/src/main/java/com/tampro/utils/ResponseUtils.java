@@ -11,9 +11,11 @@ import org.springframework.stereotype.Component;
 import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.response.APIStatus;
  
-
-@Component
-public class ResponseUtil {
+/*
+ *  base
+ */
+@Component 
+public class ResponseUtils {
 
 	public ResponseEntity<APIResponse> badRequestResponse(List<Constant.ParamError> errors) {
 
