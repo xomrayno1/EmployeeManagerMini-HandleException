@@ -3,11 +3,15 @@ package com.tampro.springrest01.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import com.tampro.springrest01.entity.Employee;
 import com.tampro.springrest01.entity.Role;
 import com.tampro.springrest01.entity.Team;
+import com.tampro.springrest01.model.entity.EmployeeSpecification;
 import com.tampro.springrest01.model.request.CreateEmpRequest;
 import com.tampro.springrest01.repository.EmployeeRepository;
 import com.tampro.springrest01.service.EmployeeService;
@@ -68,6 +72,17 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public boolean isExists(String code) {
 		// TODO Auto-generated method stub
 		return (empRepo.findByCode(code) != null ) ? true : false;
+	}
+
+	@Override
+	public Page<Employee> doFilterSearchSortPagingEmployee(String searchKey, int sortKey, boolean ascSort,
+			int pageNumber, int pageSize) {
+		// TODO Auto-generated method stub
+		return empRepo.findAll(
+				new EmployeeSpecification(searchKey, sortKey, ascSort),
+				PageRequest.of(pageNumber, pageSize)
+				);
+	 
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tampro.springrest01.entity.Employee;
 import com.tampro.springrest01.exception.ApplicationException;
 import com.tampro.springrest01.model.request.CreateEmpRequest;
+import com.tampro.springrest01.model.request.EmployeePagingSearchSortModel;
 import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.response.APIStatus;
 import com.tampro.springrest01.response.EmployeeResponse;
 import com.tampro.springrest01.service.EmployeeService;
+import com.tampro.utils.ResponseUtils;
 
 @RestController
 @RequestMapping("/api/v1/employees")
@@ -30,7 +33,26 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService empService;
 	
+	ResponseUtils responseUtil = new ResponseUtils();
 	
+	@PostMapping("/get_list_sort_search_paging_filter")
+	public ResponseEntity<APIResponse> 
+				getListPagingSortSearchAndFilter(@RequestBody EmployeePagingSearchSortModel empModel){
+		try {
+			Page<Employee> pageEmp = empService.doFilterSearchSortPagingEmployee(empModel.getSearchKey(),
+					empModel.getSortKey(), empModel.isAscSort(), empModel.getPageNumber(), empModel.getPageSize());
+			if(pageEmp != null) {
+				return responseUtil.successResponse(pageEmp);
+			}else {
+				throw new ApplicationException(APIStatus.ERR_EMPLOYEE_LIST_IS_EMPTY);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new ApplicationException(APIStatus.ERR_EMPLOYEE_LIST_IS_EMPTY);
+		}
+		 
+ 
+	}
 	@GetMapping
 	public ResponseEntity<APIResponse> getAllEmp(){
 		List<Employee> list  = empService.getAll();
