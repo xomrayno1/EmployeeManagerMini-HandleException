@@ -3,9 +3,12 @@ package com.tampro.springrest01.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.tampro.springrest01.entity.Team;
+import com.tampro.springrest01.model.entity.TeamSpecification;
 import com.tampro.springrest01.model.request.CreateTeamRequest;
 import com.tampro.springrest01.repository.TeamRepository;
 import com.tampro.springrest01.service.TeamService;
@@ -60,6 +63,12 @@ public class TeamServiceImpl implements TeamService{
 	public Team getByCode(String code) {
 		// TODO Auto-generated method stub
 		return teamRepo.findByCode(code);
+	}
+
+	@Override
+	public Page<Team> doPagingSortSearch(String searchName, int keySort, boolean isAsc, int pageSize, int pageNumber) {
+		// TODO Auto-generated method stub
+		return teamRepo.findAll(new TeamSpecification(keySort, searchName, isAsc), PageRequest.of(pageNumber, pageSize));
 	}
 
 }

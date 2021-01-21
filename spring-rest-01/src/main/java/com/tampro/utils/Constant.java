@@ -7,6 +7,9 @@ public class Constant {
     public static final int SORT_BY_EMPLOYEE_DATE_OF_BIRTH = 2;
     public static final int SORT_BY_EMPLOYEE_CODE = 3;
 	
+    public static final int SORT_BY_TEAM_ID= 1;
+    public static final int SORT_BY_TEAM_NAME = 2;
+    
 	public enum ParamError{
 		CODE("code", "Invalid Code");
 		

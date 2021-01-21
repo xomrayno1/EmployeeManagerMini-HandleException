@@ -50,7 +50,6 @@ public class EmployeeController {
 			// TODO: handle exception
 			throw new ApplicationException(APIStatus.ERR_EMPLOYEE_LIST_IS_EMPTY);
 		}
-		 
  
 	}
 	@GetMapping
@@ -64,9 +63,7 @@ public class EmployeeController {
 			list.forEach(item->{
 				listEmpResponse.add(new EmployeeResponse(item));
 			});
-			return new ResponseEntity<APIResponse>(
-					new APIResponse<List<EmployeeResponse>>(listEmpResponse, APIStatus.OK),
-					HttpStatus.OK);
+			return responseUtil.successResponse(list);
 		}	
 	}
 	@GetMapping("/{id}")
@@ -75,10 +72,7 @@ public class EmployeeController {
 		if(employee == null) {
 			throw new ApplicationException(APIStatus.ERR_EMPLOYEE_ID_NOT_EXISTS);
 		}
-		return new ResponseEntity<APIResponse>(
-				new APIResponse<EmployeeResponse>(new EmployeeResponse(employee), APIStatus.OK),
-				HttpStatus.OK
-				);
+		return  responseUtil.successResponse(employee);
 	}
 	@PostMapping
 	public ResponseEntity<APIResponse> createEmp(@RequestBody CreateEmpRequest empRequest){
@@ -86,8 +80,9 @@ public class EmployeeController {
 			 throw new ApplicationException(APIStatus.ERR_CODE_EXISTS);
 		 }else {
 			 Employee employee = empService.createEmployee(empRequest);
-			 return new ResponseEntity<APIResponse>(
-					 new APIResponse<EmployeeResponse>(new EmployeeResponse(employee), APIStatus.CREATED),
+			 return responseUtil.buildResponse(
+					 APIStatus.CREATED,
+					 employee,
 					 HttpStatus.CREATED);
 		 }
 	}
@@ -111,10 +106,7 @@ public class EmployeeController {
 				 employee.setLastName(empRequest.getLastName());
 			 }
 			 Employee newEmp = empService.updateEmployee(employee);
-			 return new ResponseEntity<APIResponse>(
-					 new APIResponse<EmployeeResponse>(new EmployeeResponse(newEmp), APIStatus.OK),
-					 HttpStatus.OK
-					 );
+			 return  responseUtil.successResponse(newEmp);
 		 }
 	}
 	
@@ -131,10 +123,7 @@ public class EmployeeController {
 			 }
  
 			 Employee  newEmp = empService.updateEmployee(employee);
-			 return new ResponseEntity<APIResponse>(
-					 new APIResponse<EmployeeResponse>(new EmployeeResponse(employee), APIStatus.OK),
-					 HttpStatus.OK
-					 );
+			 return responseUtil.successResponse(newEmp);
 		 }
 	}
 	@DeleteMapping("/{id}")
@@ -143,9 +132,7 @@ public class EmployeeController {
 		 if(employee == null) {
 			 throw new ApplicationException(APIStatus.ERR_EMPLOYEE_ID_NOT_EXISTS);
 		 }else {
-			 return new ResponseEntity<APIResponse>(
-					 new APIResponse<Employee>(null, APIStatus.OK),
-					 HttpStatus.OK);
+			 return responseUtil.successResponse(null);
 		 }
 	}
 	

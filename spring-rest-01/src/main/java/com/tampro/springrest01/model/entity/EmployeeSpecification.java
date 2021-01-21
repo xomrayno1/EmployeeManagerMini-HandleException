@@ -82,7 +82,7 @@ public class EmployeeSpecification implements Specification<Employee>{
 	        } else {
 	            cq.orderBy(cb.desc(orderClause));
 	        }
-	        return cb.and(predicates.toArray(new Predicate[]{}));
+	        return cb.and(predicates.toArray(new Predicate[]{})); 
 	}
 	public String getSearchKey() {
 		return searchKey;
