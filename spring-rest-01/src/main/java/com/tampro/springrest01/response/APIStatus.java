@@ -13,8 +13,8 @@ public enum APIStatus {
 	ERR_EMPLOYEE_ID_NOT_EXISTS(119,"Employee not exists "),
 	ERR_EMPLOYEE_LIST_IS_EMPTY(125,"list of employee is empty "),
 	ERR_TEAM_ID_NOT_EXISTS(120,"Team not exists "),
-	ERR_TEAM_LIST_IS_EMPTY(122,"list of team is empty ");
-	
+	ERR_TEAM_LIST_IS_EMPTY(122,"list of team is empty "),
+	ERR_ADDRESS_ID_NOT_EXISTS(133,"Address not exists");
 	private final int code ;
 	private final String description;
 

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
  
 public class Address {
@@ -18,6 +20,7 @@ public class Address {
 	private String district;
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
+	@JsonIgnore
 	private Employee employee;
 	public long getId() {
 		return id;

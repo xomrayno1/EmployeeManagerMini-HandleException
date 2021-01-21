@@ -28,19 +28,17 @@ import com.tampro.springrest01.response.APIStatus;
 import com.tampro.springrest01.service.TeamService;
 import com.tampro.utils.ResponseUtils;
 
-import jdk.internal.org.jline.utils.Log;
-
 @RestController
 @RequestMapping("/api/v1/teams")
 public class TeamController {
 	@Autowired
 	private TeamService teamService;
 	
+	
 	ResponseUtils responseUtils = new ResponseUtils();
 	
 	private static final Logger log = LoggerFactory.getLogger(TeamController.class);
 
-	
 	@PostMapping("/get_list_paging_sort_search")
 	public ResponseEntity<APIResponse> getDoPagingSortSearchFilter(@RequestBody TeamPagingSearchSortModel teamPagingSearchSortModel){
 		try {
@@ -109,13 +107,13 @@ public class TeamController {
 		return responseUtils.successResponse(teamUpdate);
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteEmp(@PathVariable("id") long id){
+	public ResponseEntity<APIResponse> deleteTeam(@PathVariable("id") long id){
 		Team team = teamService.getById(id);
 		if(team == null) {
-			throw new ApplicationException(APIStatus.ERR_EMPLOYEE_ID_NOT_EXISTS); 
+			throw new ApplicationException(APIStatus.ERR_TEAM_ID_NOT_EXISTS); 
 		}else {
 			teamService.deleteTeam(team);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return responseUtils.successResponse("Delete team successly");
 		}
 	}
 	 

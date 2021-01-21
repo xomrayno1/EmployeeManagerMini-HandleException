@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.tampro.springrest01.entity.Address;
 import com.tampro.springrest01.entity.Employee;
+import com.tampro.springrest01.model.request.CreateAddressRequest;
+import com.tampro.springrest01.model.request.UpdateAddressRequest;
 import com.tampro.springrest01.repository.AddressRepository;
-import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.service.AddressService;
 
 @Service
@@ -18,15 +19,29 @@ public class AddressServiceImpl implements AddressService{
 	
 
 	@Override
-	public APIResponse<Address> createAddress(Address address) {
+	public Address createAddress(CreateAddressRequest car) {
 		// TODO Auto-generated method stub
-		return null;
+		Address address = new Address();
+		address.setDistrict(car.getDistrict());
+		address.setEmployee(new Employee(car.getEmpId()));
+		address.setProvince(car.getProvince());
+		address.setStreet(car.getStreet());
+		return addressRepo.save(address);
 	}
 
 	@Override
-	public APIResponse<Address> updateAddress(Address address) {
+	public Address updateAddress(UpdateAddressRequest uar) {
 		// TODO Auto-generated method stub
-		return null;
+		Address address = addressRepo.findById(uar.getId()).orElse(null);
+		if(address != null) {
+			address.setDistrict(uar.getDistrict());
+			address.setEmployee(new Employee(uar.getEmpId()));
+			address.setId(uar.getId());
+			address.setProvince(uar.getProvince());
+			address.setStreet(uar.getStreet());
+			addressRepo.save(address);
+		}
+		return address;
 	}
 
 	@Override
@@ -44,13 +59,16 @@ public class AddressServiceImpl implements AddressService{
 	@Override
 	public List<Address> getByEmployee(Employee employee) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		return addressRepo.findByEmployee( employee);
 	}
 
 	@Override
-	public Employee getById(long id) {
+	public Address getById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return addressRepo.findById(id).orElse(null);
 	}
+
+	  
 
 }

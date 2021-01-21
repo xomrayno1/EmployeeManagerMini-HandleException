@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tampro.springrest01.entity.Employee;
+import com.tampro.springrest01.entity.Team;
 import com.tampro.springrest01.exception.ApplicationException;
 import com.tampro.springrest01.model.request.CreateEmpRequest;
 import com.tampro.springrest01.model.request.EmployeePagingSearchSortModel;
@@ -25,6 +26,7 @@ import com.tampro.springrest01.response.APIResponse;
 import com.tampro.springrest01.response.APIStatus;
 import com.tampro.springrest01.response.EmployeeResponse;
 import com.tampro.springrest01.service.EmployeeService;
+import com.tampro.springrest01.service.TeamService;
 import com.tampro.utils.ResponseUtils;
 
 @RestController
@@ -32,6 +34,8 @@ import com.tampro.utils.ResponseUtils;
 public class EmployeeController {
 	@Autowired
 	EmployeeService empService;
+	@Autowired
+	TeamService teamService;
 	
 	ResponseUtils responseUtil = new ResponseUtils();
 	
@@ -80,10 +84,7 @@ public class EmployeeController {
 			 throw new ApplicationException(APIStatus.ERR_CODE_EXISTS);
 		 }else {
 			 Employee employee = empService.createEmployee(empRequest);
-			 return responseUtil.buildResponse(
-					 APIStatus.CREATED,
-					 employee,
-					 HttpStatus.CREATED);
+			 return responseUtil.successResponse("create employee successfully");
 		 }
 	}
 	@PutMapping("/{id}")
@@ -132,10 +133,23 @@ public class EmployeeController {
 		 if(employee == null) {
 			 throw new ApplicationException(APIStatus.ERR_EMPLOYEE_ID_NOT_EXISTS);
 		 }else {
-			 return responseUtil.successResponse(null);
+			 return responseUtil.successResponse("successfully");
 		 }
 	}
-	
+	@GetMapping("/team/{teamId}")
+	public ResponseEntity<APIResponse> getEmpByTeam(@PathVariable("teamId") long teamId){
+		Team team = teamService.getById(teamId);
+		if(team == null) {
+			throw new ApplicationException(APIStatus.ERR_TEAM_ID_NOT_EXISTS);
+		}else {
+			List<Employee> employees = empService.getByTeam(team);
+			if(employees.isEmpty()) {
+				throw new ApplicationException(APIStatus.ERR_EMPLOYEE_LIST_IS_EMPTY);
+			}
+			return  responseUtil.successResponse(team);
+		}
+		 
+	}
 
 }
 ////https://petstore.swagger.io/#/

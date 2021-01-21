@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public List<Employee> getByTeam(Team team) {
 		// TODO Auto-generated method stub
-		return null;
+		return empRepo.findByTeam(team);
 	}
 
 	@Override

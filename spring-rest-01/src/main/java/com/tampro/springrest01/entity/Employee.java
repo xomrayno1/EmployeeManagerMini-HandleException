@@ -37,6 +37,13 @@ public class Employee {
 	private Role role;
 	private String code;
 	
+	public Employee(long id) {
+		 
+		this.id = id;
+	}
+	public Employee() {
+		 
+	}
 	public long getId() {
 		return id;
 	}
